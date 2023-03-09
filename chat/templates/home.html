@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for post in posts %}
+
+        <div style="width: 100%; display: table; margin: 20px">
+          
+          <div style="display: table-row;">
+            <div style="width: 5%; display: table-cell; vertical-align: top;">
+              <profile-pic class="media post-profile-img-section">
+                <img class="rounded-circle post-profile-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+              </profile-pic>
+            </div>
+            
+            <div style="display: table-cell; vertical-align: top;">
+              {% if post.author == current_user %}
+                <content class="media content-section" style="background: #a7e8c0;">
+              {% else %}
+                <content class="media content-section">
+              {% endif %}
+                <div class="media-body">
+                  <span class="content-author">{{ post.author.username }}</span>
+                  <span class="content-date" style="float:right">{{ post.date_posted.strftime('%H:%M') }}</span>
+                  <p class="article-content">{{ post.content }}</p>
+                </div>
+              </content>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+
+    <div>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {% if form.content.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.content.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.content(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group text-right">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}
