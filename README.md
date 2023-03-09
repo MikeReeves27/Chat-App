@@ -6,3 +6,5 @@ Users can register, log in/log out, update their username/email/profile picture.
 - Python 3.9
 - Flask 2.2.2
 - HTML5
+
+![alt text](Chat%20app%20screenshot.png)
